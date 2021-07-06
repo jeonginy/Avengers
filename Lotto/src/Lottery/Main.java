@@ -1,17 +1,8 @@
 package Lottery;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
    
 /*	1) 로또 개수, 확인 버튼 -> 원하는 개수 입력 받기 
  * 	2) 수동, 반자동, 자동 버튼 Label / 수정, 삭제 버튼 
@@ -38,8 +29,7 @@ public class Main extends JFrame {
 		numOfBet.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Object c = e.getSource();
-				JComboBox<Integer> tmp = (JComboBox<Integer>) c;
+				JComboBox<Integer> tmp = (JComboBox<Integer>) e.getSource();
 				select = tmp.getSelectedIndex() + 1;
 			}
 		});
@@ -62,7 +52,7 @@ public class Main extends JFrame {
 	}
 
 	private void showGUI() {
-		setSize(400, 400);
+		pack();
 		setVisible(true);
 	}
 
