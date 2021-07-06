@@ -13,7 +13,7 @@ import javax.swing.*;
 class RadioActionListener implements ActionListener {
 	List<List<JRadioButton>> check;
 	List<Integer> selectedNumber;
-	
+
 	public RadioActionListener(List<List<JRadioButton>> check, List<Integer> selectedNumber) {
 		this.check = check;
 		this.selectedNumber = selectedNumber;
@@ -49,41 +49,37 @@ class ChoiceOfway extends JFrame {
 	List<List<JRadioButton>> check = new ArrayList<>();
 
 	List<Integer> selectedNumber = new ArrayList<>(); // 선택한 숫자 저장
-	JPanel selectionPop = new JPanel();
+	JPanel selectionPop;
+	JLabel tmpLbl;
+	JPanel lottoPnl;
+	JLabel price;
+	JPanel btnPanel;
+	JButton auto;
+	JButton reset;
+	JButton confirm;
 
 	public ChoiceOfway(MouseEvent e) {
 		// e의 객체 지정 - x x x x x x 를 눌렷을때 e를 받아옴
-		JLabel tmpLbl = (JLabel) e.getSource();
-		
+		tmpLbl = (JLabel) e.getSource();
+
 		// 전체 로또 판때기
+		selectionPop = new JPanel();
 		selectionPop.setLayout(new BoxLayout(selectionPop, BoxLayout.Y_AXIS));
 
 		// 로또 금액, 숫자
-		JPanel lottoPnl = new JPanel();
-		
-		if (check.isEmpty()) {
-			lottoPnl.setLayout(new BoxLayout(lottoPnl, BoxLayout.Y_AXIS));
-			JLabel price = new JLabel("금액 : 1,000원(장당)");
-			lottoPnl.add(price);
-			
-			addLottoRadio(lottoPnl);
-		}
-		else {
-			selectionPop.remove(lottoPnl);
-			lottoPnl.setLayout(new BoxLayout(lottoPnl, BoxLayout.Y_AXIS));
-			JLabel price = new JLabel("금액 : 1,000원(장당)");
-			lottoPnl.add(price);
-			
-			modLottoRadio(lottoPnl);
-		}
-		
-		
-		
+		lottoPnl = new JPanel();
+
+		lottoPnl.setLayout(new BoxLayout(lottoPnl, BoxLayout.Y_AXIS));
+		price = new JLabel("금액 : 1,000원(장당)");
+		lottoPnl.add(price);
+
+		addLottoRadio(lottoPnl);
+
 		// 확인 및 수정 버튼
-		JPanel btnPanel = new JPanel();
+		btnPanel = new JPanel();
 		btnPanel.setLayout(new FlowLayout());
 
-		JButton auto = new JButton("자동");
+		auto = new JButton("자동");
 		auto.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -101,7 +97,7 @@ class ChoiceOfway extends JFrame {
 			}
 		});
 
-		JButton reset = new JButton("초기화");
+		reset = new JButton("초기화");
 		reset.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -115,7 +111,7 @@ class ChoiceOfway extends JFrame {
 			}
 		});
 
-		JButton confirm = new JButton("확인");
+		confirm = new JButton("확인");
 		confirm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -140,13 +136,14 @@ class ChoiceOfway extends JFrame {
 		// 전체 로또 판때기에 부착
 		add(selectionPop);
 		showGUI();
+	}
 
-	}
-	
 	public void callSelectionPop() {
+		remove(selectionPop);
 		add(selectionPop);
+		showGUI();
 	}
-	
+
 	private void modLottoRadio(JPanel lottoPnl) {
 		for (int i = 0; i < check.size(); i++) {
 			JPanel lottoTemp = new JPanel();
@@ -190,6 +187,7 @@ class ChoiceOfway extends JFrame {
 	}
 
 	private void showGUI() {
+//		setSize(500, 500);
 		pack();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);

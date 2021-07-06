@@ -1,5 +1,6 @@
 package Lottery;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -19,16 +20,23 @@ class SelectingNumber extends JFrame {
 	List<List<JButton>> editOfLottery = new ArrayList<>(); // 자동 수정 삭제 버튼 담을 그릇
 	List<ChoiceOfway> choiceOfwayList = new ArrayList<>();
 	String[] editOfButton = { "수정", "삭제" }; // 수정 삭제 버튼
-	static int[] selectedNum = new int[6];
+	List<List<Integer>> selectedNum = new ArrayList<>();
+	JPanel warningPnl;
+	JLabel warningMsg = new JLabel("숫자를 누르면 선택창이 열립니다");
 	int select;
 //	Main에서 next버튼 눌렸을 때, ActionListener로 인해 호출 
 //	ActionListener cast this constructor to choose the numbers of lottery
 
 	public SelectingNumber(int select) { // Main Integer[] A - 1,2,3,4,5 가져오기
 		this.select = select;
-
+		
 		JPanel main = new JPanel();
 		main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
+		
+		warningPnl = new JPanel();
+		warningMsg.setForeground(Color.red);
+		warningPnl.add(warningMsg);
+		main.add(warningPnl);
 		
 		// The names
 		// 1) integer A 배열을 그대로 가지고 와서 1,2,3,4,5를 A,B,C,D,E로 만들어서 뽑기
@@ -59,11 +67,11 @@ class SelectingNumber extends JFrame {
 			numOfLottery.get(i).addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					int idx = numOfLottery.indexOf((JLabel) e.getSource());
-					if (choiceOfwayList.size() >= idx + 1)
-						choiceOfwayList.get(idx).callSelectionPop();
-					else
+					if (choiceOfwayList.size() > numOfLottery.indexOf((JLabel) e.getSource()))
+						choiceOfwayList.get(numOfLottery.indexOf((JLabel) e.getSource())).callSelectionPop();
+					else {
 						choiceOfwayList.add(new ChoiceOfway(e));
+					}
 				}
 			});
 		}

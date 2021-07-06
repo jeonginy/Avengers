@@ -18,8 +18,9 @@ public class Main extends JFrame {
 //	1) 로또 개수, 확인 버튼 -> 원하는 개수 입력 받기 (최대 5개까지 가능)
 	Integer[] A = { 1, 2, 3, 4, 5 };
 	JComboBox<Integer> numOfBet = new JComboBox<>(A);
-	static int select = 0;
+	static int select = 1;
 
+	
 	public Main() {
 		JPanel pnl = new JPanel();
 
