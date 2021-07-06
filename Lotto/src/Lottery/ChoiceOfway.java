@@ -3,7 +3,6 @@ package Lottery;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -48,20 +47,20 @@ class ChoiceOfway extends JFrame {
 	 */
 	List<List<JRadioButton>> check = new ArrayList<>();
 
-	List<Integer> selectedNumber = new ArrayList<>(); // 선택한 숫자 저장
+	List<Integer> selectedNumberList; // 선택한 숫자 저장
 	JPanel selectionPop;
-	JLabel tmpLbl;
 	JPanel lottoPnl;
 	JLabel price;
 	JPanel btnPanel;
 	JButton auto;
 	JButton reset;
 	JButton confirm;
+	List<JLabel> numOfLottery;
 
-	public ChoiceOfway(MouseEvent e) {
-		// e의 객체 지정 - x x x x x x 를 눌렷을때 e를 받아옴
-		tmpLbl = (JLabel) e.getSource();
-
+	public ChoiceOfway(JLabel[] numOfLottery, int[] selectedNumber) {
+		// SelectingNumber class의 선택한 숫자 list를 가져와서 여기에서 숫자 저장
+		selectedNumberList = new ArrayList<>();
+		
 		// 전체 로또 판때기
 		selectionPop = new JPanel();
 		selectionPop.setLayout(new BoxLayout(selectionPop, BoxLayout.Y_AXIS));
@@ -83,12 +82,12 @@ class ChoiceOfway extends JFrame {
 		auto.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MakeNumber.randomNum(selectedNumber);
+				MakeNumber.randomNum(selectedNumberList);
 				for (int i = 0; i < check.size(); i++) {
 					List<JRadioButton> tmp = check.get(i);
 					for (int j = 0; j < tmp.size(); j++) {
 						int tmp2 = (i * 7) + j + 1;
-						if (selectedNumber.contains(tmp2))
+						if (selectedNumberList.contains(tmp2))
 							tmp.get(j).setSelected(true);
 						else
 							tmp.get(j).setSelected(false);
@@ -107,7 +106,7 @@ class ChoiceOfway extends JFrame {
 						tmp.get(j).setSelected(false);
 					}
 				}
-				selectedNumber.clear();
+				selectedNumberList.clear();
 			}
 		});
 
@@ -115,13 +114,18 @@ class ChoiceOfway extends JFrame {
 		confirm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				StringBuffer sb = new StringBuffer();
-				Collections.sort(selectedNumber);
-				for (int tmpSelect : selectedNumber) {
-					sb.append(tmpSelect + " ");
+				if (selectedNumberList.size() != 6)
+					JOptionPane.showMessageDialog(null, "6개를 선택하세요");
+				else {
+					Collections.sort(selectedNumberList);
+					for (int i = 0; i < 6; i++) {
+						int tmp = selectedNumberList.get(i);
+						selectedNumber[i] = tmp;
+						ImageIcon tmpIcon = new ImageIcon("number\\" + tmp + ".gif");
+						numOfLottery[i].setIcon(tmpIcon);
+					}
+					dispose();
 				}
-				tmpLbl.setText(sb.toString());
-				dispose();
 			}
 		});
 
@@ -155,7 +159,7 @@ class ChoiceOfway extends JFrame {
 			for (int j = 0; j < tempRadList.size(); j++) {
 				int tmpNum = (i * 7) + j + 1;
 				lottoTemp.add(tempRadList.get(j));
-				if (selectedNumber.contains(tmpNum))
+				if (selectedNumberList.contains(tmpNum))
 					tempRadList.get(j).setSelected(true);
 				else
 					tempRadList.get(j).setSelected(false);
@@ -180,7 +184,7 @@ class ChoiceOfway extends JFrame {
 				ImageIcon tmpIcon = new ImageIcon("number\\" + tmp + ".gif");
 				JRadioButton radioTemp = new JRadioButton();
 				JLabel tmpLbl = new JLabel(tmpIcon);
-				radioTemp.addActionListener(new RadioActionListener(check, selectedNumber));
+				radioTemp.addActionListener(new RadioActionListener(check, selectedNumberList));
 				lottoTemp.add(radioTemp);
 				lottoTemp.add(tmpLbl);
 				tempRadList.add(radioTemp);
