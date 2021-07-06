@@ -12,7 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+ 
 class SelectingNumber extends JFrame {
 	/*
 	 * 2) 수동, 반자동, 자동 버튼 Label / 수정, 삭제 버튼 3) 번호 고르기 > 자동(반자동), 초기화, 확인 -> 총 금액,

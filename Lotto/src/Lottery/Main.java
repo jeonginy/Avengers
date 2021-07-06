@@ -1,5 +1,4 @@
 package Lottery;
-
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+   
 /*	1) 로또 개수, 확인 버튼 -> 원하는 개수 입력 받기 
  * 	2) 수동, 반자동, 자동 버튼 Label / 수정, 삭제 버튼 
  * 	3) 번호 고르기 > 자동(반자동), 초기화, 확인 -> 총 금액, 구매하기 버튼 
