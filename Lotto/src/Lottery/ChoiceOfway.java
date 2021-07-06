@@ -168,7 +168,7 @@ class ChoiceOfway extends JFrame {
 	private void addLottoRadio(JPanel lottoPnl) {
 		for (int i = 0; i < 7; i++) {
 			JPanel lottoTemp = new JPanel();
-			if (i == 7)
+			if (i == 6)
 				lottoTemp.setLayout(new FlowLayout(FlowLayout.LEFT));
 			else
 				lottoTemp.setLayout(new FlowLayout());
@@ -177,7 +177,7 @@ class ChoiceOfway extends JFrame {
 				if (i == 6 && j > 2)
 					break;
 				int tmp = (i * 7) + j + 1;
-				ImageIcon tmpIcon = new ImageIcon("number\\" + 37 + ".gif");
+				ImageIcon tmpIcon = new ImageIcon("number\\" + tmp + ".gif");
 				JRadioButton radioTemp = new JRadioButton();
 				JLabel tmpLbl = new JLabel(tmpIcon);
 				radioTemp.addActionListener(new RadioActionListener(check, selectedNumber));
