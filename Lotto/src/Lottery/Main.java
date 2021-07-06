@@ -22,6 +22,10 @@ public class Main extends JFrame {
 
 	
 	public Main() {
+		ImageIcon img1 = new ImageIcon("Logo\\Logo1.png");
+		JLabel lbl111 = new JLabel(img1);
+		add(lbl111);
+		
 		JPanel pnl = new JPanel();
 
 		JLabel lbl = new JLabel("Select the numbers of you're betting for");
@@ -43,11 +47,11 @@ public class Main extends JFrame {
 		});
 		
 
-		pnl.add(numOfBet);
+		pnl.add(numOfBet, "South");
 		pnl.add(lbl);
 		pnl.add(btn);
 
-		add(pnl);
+		add(pnl, "South");
 
 		showGUI();
 	}

@@ -176,9 +176,13 @@ class ChoiceOfway extends JFrame {
 			for (int j = 0; j < 7; j++) {
 				if (i == 6 && j > 2)
 					break;
-				JRadioButton radioTemp = new JRadioButton(String.valueOf((7 * i) + j + 1));
+				int tmp = (i * 7) + j + 1;
+				ImageIcon tmpIcon = new ImageIcon("number\\" + 37 + ".gif");
+				JRadioButton radioTemp = new JRadioButton();
+				JLabel tmpLbl = new JLabel(tmpIcon);
 				radioTemp.addActionListener(new RadioActionListener(check, selectedNumber));
 				lottoTemp.add(radioTemp);
+				lottoTemp.add(tmpLbl);
 				tempRadList.add(radioTemp);
 			}
 			lottoPnl.add(lottoTemp);
