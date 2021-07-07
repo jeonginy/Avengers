@@ -173,7 +173,23 @@ class SelectingNumber extends JFrame {
 			}
 		}
 		
+		JPanel nextPnl = new JPanel();
+		nextPnl.setOpaque(true);
+		nextPnl.setBackground(Color.white);
 		
+		ImageIcon nextLblIcon = new ImageIcon("Buttons\\NEXT.gif");
+		JLabel nextLbl = new JLabel(nextLblIcon);
+		
+		nextLbl.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				new outcome(selectedNum);
+			}
+		});
+		
+		nextPnl.add(nextLbl);
+		
+		main.add(nextPnl);
 
 		add(main);
 

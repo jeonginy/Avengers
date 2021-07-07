@@ -11,6 +11,42 @@ import java.util.List;
 
 import javax.swing.*;
 
+class NumLabelActionListener extends MouseAdapter{
+	List<List<JRadioButton>> check;
+	List<Integer> selectedNumber;
+	List<List<JLabel>> checkLbl;
+	JLabel tmpLbl;
+	
+	public NumLabelActionListener(List<List<JRadioButton>> check, List<Integer> selectedNumber, JLabel tmpLbl, List<List<JLabel>> checkLbl) {
+		this.check = check;
+		this.selectedNumber = selectedNumber;
+		this.tmpLbl = tmpLbl;
+		this.checkLbl = checkLbl;
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		int tmp2 = 0;
+		for (int i = 0; i < this.check.size(); i++) {
+			List<JLabel> tmp = this.checkLbl.get(i);
+			for (int j = 0; j < tmp.size(); j++) {
+				tmp2 = (i * 7) + j + 1;
+				if (tmp.get(j) == tmpLbl) {
+					check.get(i).get(j).setSelected(true);
+					if (!this.selectedNumber.contains(tmp2))
+						this.selectedNumber.add(tmp2);
+				}
+				if (this.selectedNumber.size() > 6) {
+					check.get(i).get(j).setSelected(false);
+					JOptionPane.showMessageDialog(null, "6개 이하만 선택해주세요");
+				}
+				if (this.selectedNumber.contains(tmp2) && !check.get(i).get(j).isSelected())
+					this.selectedNumber.remove(this.selectedNumber.indexOf(tmp2));
+			}
+		}
+	}
+}
+
 class RadioActionListener implements ActionListener {
 	List<List<JRadioButton>> check;
 	List<Integer> selectedNumber;
@@ -28,12 +64,9 @@ class RadioActionListener implements ActionListener {
 			for (int j = 0; j < tmp.size(); j++) {
 				tmp2 = (i * 7) + j + 1;
 				if (tmp.get(j).isSelected()) {
-					tmp.get(j).setSelected(true);
 					if (!this.selectedNumber.contains(tmp2))
 						this.selectedNumber.add(tmp2);
 				}
-				else
-					tmp.get(j).setSelected(false);
 				if (this.selectedNumber.size() > 6) {
 					tmp.get(j).setSelected(false);
 					JOptionPane.showMessageDialog(null, "6개 이하만 선택해주세요");
@@ -200,13 +233,7 @@ class ChoiceOfway extends JFrame {
 				lottoTemp.add(tmpLbl);
 				
 //				숫자 라벨을 선택했을때도 라디오버튼이 선택되도록 하는 함수
-//				tmpLbl.addMouseListener(new MouseAdapter() {
-//					@Override
-//					public void mouseClicked(MouseEvent e) {
-//						radioTemp.addActionListener(new RadioActionListener(check, selectedNumberList));
-//					}
-//				});
-				
+				tmpLbl.addMouseListener(new NumLabelActionListener(check, selectedNumberList, tmpLbl, checkLbl));
 				tempRadList.add(radioTemp);
 				tempRadLblList.add(tmpLbl);
 			}

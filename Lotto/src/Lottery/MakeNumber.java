@@ -12,7 +12,14 @@ class MakeNumber {
 		randomresult.add(i);
 		}
 		Collections.shuffle(randomresult);
-		return randomresult;
+		
+		List<Integer> lottoNumber = new ArrayList<>();
+		
+		for (int i = 0; i < 7; i++) {
+			lottoNumber.add(randomresult.get(i));
+		}
+		
+		return lottoNumber;
 	}
 	public static void randomNum(List<Integer> selectedNumber) {
 		List<Integer> lottoNumber = new ArrayList<Integer>();
