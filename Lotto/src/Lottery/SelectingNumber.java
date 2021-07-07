@@ -97,7 +97,7 @@ class SelectingNumber extends JFrame {
 	static JLabel[][] numOfLottery; // 선택한 번호나 xxx를 표시할 라벨의 배열
 	static List<List<JLabel>> editOfLottery = new ArrayList<>(); // 수정 삭제 버튼 담을 그릇
 	static ChoiceOfway[] choiceOfwayList; // 숫자 선택창을 저장할 배열
-	static String[] editOfButton = { "Buttons\\EDIT.gif", "Buttons\\DELETE.gif" }; // 수정 삭제 버튼
+	static String[] editOfButton = { "Buttons/EDIT.gif", "Buttons/DELETE.gif" }; // 수정 삭제 버튼
 	static int[][] selectedNum; // 선택한 숫자들이 담길 배열
 	JPanel warningPnl; // 제일 위에 설명할 라벨을 위한 패널
 	JLabel warningMsg;
@@ -117,7 +117,7 @@ class SelectingNumber extends JFrame {
 		main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS)); // 세로정렬
 		
 		warningPnl = new JPanel(); // 설명용 패널
-		ImageIcon warningIcon = new ImageIcon("Labels\\sentence.gif");
+		ImageIcon warningIcon = new ImageIcon("Labels/sentence.gif");
 		warningMsg = new JLabel(warningIcon);
 		warningPnl.setOpaque(true);
 		warningPnl.setBackground(Color.white);
@@ -135,7 +135,7 @@ class SelectingNumber extends JFrame {
 			
 			// A ~ E까지 선택한 횟수만큼 라벨을 만들어서 패널에 추가
 			// A는 65이기 때문에 i가 0일때 65를 더해 A라는 문자를 추출
-			ImageIcon abcIcon = new ImageIcon("Labels\\" + String.valueOf((char) (i + 65)) + ".gif");
+			ImageIcon abcIcon = new ImageIcon("Labels/" + String.valueOf((char) (i + 65)) + ".gif");
 			JLabel numOfName = new JLabel(abcIcon);
 			nameOfLottery.add(numOfName);
 			choice.add(numOfName);
@@ -143,7 +143,7 @@ class SelectingNumber extends JFrame {
 			// 2) 아무것도 선택하지 않은 상태에서 보이는 레이블
 			JLabel[] tmpNumList = new JLabel[6]; // 2차원 배열이므로 하나하나 만들때마다 초기화
 			for (int j = 0; j < 6; j++) { // x로 바뀐다면 j는 0부터 시작가능
-				ImageIcon tmpNumIcon = new ImageIcon("number\\x.gif");
+				ImageIcon tmpNumIcon = new ImageIcon("number/x.gif");
 				JLabel num1 = new JLabel(tmpNumIcon);
 				// 나중에 사용하기위해 임시로 만든 배열에 저장
 				tmpNumList[j] = num1;
@@ -177,13 +177,16 @@ class SelectingNumber extends JFrame {
 		nextPnl.setOpaque(true);
 		nextPnl.setBackground(Color.white);
 		
-		ImageIcon nextLblIcon = new ImageIcon("Buttons\\NEXT.gif");
+		ImageIcon nextLblIcon = new ImageIcon("Buttons/NEXT.gif");
 		JLabel nextLbl = new JLabel(nextLblIcon);
 		
 		nextLbl.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new outcome(selectedNum);
+				if (choiceOfwayList[select - 1] == null)
+					JOptionPane.showMessageDialog(null, "모든 게임을 선택해주세요");
+				else
+					new outcome(selectedNum);
 			}
 		});
 		
