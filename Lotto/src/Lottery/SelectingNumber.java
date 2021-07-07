@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -157,6 +158,9 @@ class SelectingNumber extends JFrame {
 			for (int j = 0; j < 2; j++) { // 버튼이 2개 이므로 for 조건도 2보다 작을때까지
 				ImageIcon tmpIcon = new ImageIcon(editOfButton[j]);
 				JLabel tmpLbl = new JLabel(tmpIcon); // 담은 버튼을 담을 임시 저장소
+				if( j == 0 ) {
+					tmpLbl.addMouseListener(new EditLblMouseAdaper());
+				}
 				lblList.add(tmpLbl); // 버튼에 임시 저장소에 있는 원소 넣기
 				choice.add(tmpLbl); // 임시 버튼을 choice판에 붙이기
 			}
