@@ -5,15 +5,18 @@ import java.util.*;
 // 랜덤 숫자 만들어내는 클래스 
 class MakeNumber {
 	private MakeNumber() {
-
 	}
-
+	public static List<Integer> randomNum() {
+		List<Integer> randomresult = new ArrayList<>();	//	랜덤 당첨 번호를 뽑을 리스트 
+		for( int i = 1; i < 46; i++ ) {
+		randomresult.add(i);
+		}
+		Collections.shuffle(randomresult);
+		return randomresult;
+	}
 	public static void randomNum(List<Integer> selectedNumber) {
-
 		List<Integer> lottoNumber = new ArrayList<Integer>();
 		Set<Integer> dropNum = new HashSet<>();
-		int size = selectedNumber.size();
-		int[] lottoList = new int[6 - size];
 
 		for (int i = 1; i <= 45; i++) {
 			lottoNumber.add(i);

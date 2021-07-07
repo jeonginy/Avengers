@@ -9,8 +9,8 @@ import java.util.List;
 
 import javax.swing.*;
 
-// XX 라벨을 눌렸을때 숫자 선택으로 넘어가는 리스너
-class LblMouseAdapter extends MouseAdapter {
+// XX 라벨용 마우스 아답타
+class NumLblMouseAdapter extends MouseAdapter {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// 현재 이벤트를 발생시킨 라벨 객체 저장
@@ -69,6 +69,18 @@ class LblMouseAdapter extends MouseAdapter {
 	}
 }
 
+// EDIT 버튼용 마우스아답타
+class EditLblMouseAdaper extends MouseAdapter{
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		JLabel tmpLbl = (JLabel) e.getSource();
+		for (int i = 0; i < SelectingNumber.editOfLottery.size(); i++) {
+			
+		}
+	}
+	
+}
+
 class SelectingNumber extends JFrame {
 	/*
 	 * 2) 수동, 반자동, 자동 버튼 Label / 수정, 삭제 버튼 3) 번호 고르기 > 자동(반자동), 초기화, 확인 -> 총 금액,
@@ -88,7 +100,7 @@ class SelectingNumber extends JFrame {
 	static String[] editOfButton = { "Buttons\\EDIT.gif", "Buttons\\DELETE.gif" }; // 수정 삭제 버튼
 	static int[][] selectedNum; // 선택한 숫자들이 담길 배열
 	JPanel warningPnl; // 제일 위에 설명할 라벨을 위한 패널
-	JLabel warningMsg = new JLabel("숫자를 누르면 선택창이 열립니다");
+	JLabel warningMsg;
 	
 //	Main에서 next버튼 눌렸을 때, ActionListener로 인해 호출 
 //	ActionListener cast this constructor to choose the numbers of lottery
@@ -103,38 +115,42 @@ class SelectingNumber extends JFrame {
 
 		JPanel main = new JPanel(); // 전체를 관리할 패널
 		main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS)); // 세로정렬
-
+		
 		warningPnl = new JPanel(); // 설명용 패널
-		warningMsg.setForeground(Color.red);
+		ImageIcon warningIcon = new ImageIcon("Labels\\sentence.gif");
+		warningMsg = new JLabel(warningIcon);
+		warningPnl.setOpaque(true);
+		warningPnl.setBackground(Color.white);
 		warningPnl.add(warningMsg);
 		main.add(warningPnl);
 
 		// The names
 		// 1) integer A 배열을 그대로 가지고 와서 1,2,3,4,5를 A,B,C,D,E로 만들어서 뽑기
-		for (int i = 1; i <= select; i++) {
+		for (int i = 0; i < select; i++) {
 			// A와 XXXXX 및 버튼이 담길 패널 생성
 			JPanel choice = new JPanel();
+			choice.setOpaque(true);
+			choice.setBackground(Color.white);
 			choice.setLayout(new FlowLayout()); // FlowLayout이 기본이라 생략가능
 			
 			// A ~ E까지 선택한 횟수만큼 라벨을 만들어서 패널에 추가
-			// A는 65이기 때문에 i가 1일때 64를 더해 A라는 문자를 추출
-			ImageIcon abcIcon = new ImageIcon("Labels\\" + String.valueOf((char) (i + 64)) + ".gif");
+			// A는 65이기 때문에 i가 0일때 65를 더해 A라는 문자를 추출
+			ImageIcon abcIcon = new ImageIcon("Labels\\" + String.valueOf((char) (i + 65)) + ".gif");
 			JLabel numOfName = new JLabel(abcIcon);
 			nameOfLottery.add(numOfName);
 			choice.add(numOfName);
 
 			// 2) 아무것도 선택하지 않은 상태에서 보이는 레이블
 			JLabel[] tmpNumList = new JLabel[6]; // 2차원 배열이므로 하나하나 만들때마다 초기화
-			for (int j = 1; j < 7; j++) { // x로 바뀐다면 j는 0부터 시작가능
-				// 그림파일을 불러오기 편하게 1부터 시작
-				ImageIcon tmpNumIcon = new ImageIcon("number\\" + j + ".gif");
+			for (int j = 0; j < 6; j++) { // x로 바뀐다면 j는 0부터 시작가능
+				ImageIcon tmpNumIcon = new ImageIcon("number\\x.gif");
 				JLabel num1 = new JLabel(tmpNumIcon);
-				// 1부터 시작했으므로 인덱스는 -1 해야함
-				tmpNumList[j - 1] = num1;
+				// 나중에 사용하기위해 임시로 만든 배열에 저장
+				tmpNumList[j] = num1;
 				choice.add(num1);
 			}
-			// 똑같이 i도 1부터 시작했으므로 인덱스는 -1
-			numOfLottery[i - 1] = tmpNumList;
+			// 임시로 만든 배열을 실제로 쓸 2차원 배열에 저장
+			numOfLottery[i] = tmpNumList;
 
 			// Reset, Confirm buttons
 			List<JLabel> lblList = new ArrayList<JLabel>(); // 버튼들을 담을 임시 그릇
@@ -147,14 +163,17 @@ class SelectingNumber extends JFrame {
 			editOfLottery.add(lblList);
 			main.add(choice);
 		}
+		
 		for (int i = 0; i < select; i++) {
 			// 숫자 라벨이 총 6개 이므로 6개중 어떤걸 선택해도
 			// 해당 라인이 눌려진걸로 인식되도록 for문을 한번 더 씀
 			// 해당 라인이 눌려진걸로 인식하는건 LblMouseAdapter 안에 구현해 놓음
 			for (int j = 0; j < 6; j++) {
-				numOfLottery[i][j].addMouseListener(new LblMouseAdapter());
+				numOfLottery[i][j].addMouseListener(new NumLblMouseAdapter());
 			}
 		}
+		
+		
 
 		add(main);
 

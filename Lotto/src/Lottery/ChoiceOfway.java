@@ -3,6 +3,8 @@ package Lottery;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,9 +28,12 @@ class RadioActionListener implements ActionListener {
 			for (int j = 0; j < tmp.size(); j++) {
 				tmp2 = (i * 7) + j + 1;
 				if (tmp.get(j).isSelected()) {
+					tmp.get(j).setSelected(true);
 					if (!this.selectedNumber.contains(tmp2))
 						this.selectedNumber.add(tmp2);
 				}
+				else
+					tmp.get(j).setSelected(false);
 				if (this.selectedNumber.size() > 6) {
 					tmp.get(j).setSelected(false);
 					JOptionPane.showMessageDialog(null, "6개 이하만 선택해주세요");
@@ -46,15 +51,16 @@ class ChoiceOfway extends JFrame {
 	 * 확인, 구매하기
 	 */
 	List<List<JRadioButton>> check = new ArrayList<>();
+	List<List<JLabel>> checkLbl = new ArrayList<>();
 
 	List<Integer> selectedNumberList; // 선택한 숫자 저장
 	JPanel selectionPop;
 	JPanel lottoPnl;
 	JLabel price;
 	JPanel btnPanel;
-	JButton auto;
-	JButton reset;
-	JButton confirm;
+	JLabel auto;
+	JLabel reset;
+	JLabel confirm;
 	List<JLabel> numOfLottery;
 
 	public ChoiceOfway(JLabel[] numOfLottery, int[] selectedNumber) {
@@ -67,7 +73,7 @@ class ChoiceOfway extends JFrame {
 
 		// 로또 금액, 숫자
 		lottoPnl = new JPanel();
-
+		
 		lottoPnl.setLayout(new BoxLayout(lottoPnl, BoxLayout.Y_AXIS));
 		price = new JLabel("금액 : 1,000원(장당)");
 		lottoPnl.add(price);
@@ -77,11 +83,13 @@ class ChoiceOfway extends JFrame {
 		// 확인 및 수정 버튼
 		btnPanel = new JPanel();
 		btnPanel.setLayout(new FlowLayout());
-
-		auto = new JButton("자동");
-		auto.addActionListener(new ActionListener() {
+		
+		// 자동 버튼
+		ImageIcon autoIcon = new ImageIcon("Buttons\\AUTO.gif");
+		auto = new JLabel(autoIcon);
+		auto.addMouseListener(new MouseAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void mouseClicked(MouseEvent e) {
 				MakeNumber.randomNum(selectedNumberList);
 				for (int i = 0; i < check.size(); i++) {
 					List<JRadioButton> tmp = check.get(i);
@@ -96,10 +104,11 @@ class ChoiceOfway extends JFrame {
 			}
 		});
 
-		reset = new JButton("초기화");
-		reset.addActionListener(new ActionListener() {
+		ImageIcon resetIcon = new ImageIcon("Buttons\\INIT.gif");
+		reset = new JLabel(resetIcon);
+		reset.addMouseListener(new MouseAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void mouseClicked(MouseEvent e) {
 				for (int i = 0; i < check.size(); i++) {
 					List<JRadioButton> tmp = check.get(i);
 					for (int j = 0; j < tmp.size(); j++) {
@@ -110,10 +119,11 @@ class ChoiceOfway extends JFrame {
 			}
 		});
 
-		confirm = new JButton("확인");
-		confirm.addActionListener(new ActionListener() {
+		ImageIcon confirmIcon = new ImageIcon("Buttons\\CHECK.gif");
+		confirm = new JLabel(confirmIcon);
+		confirm.addMouseListener(new MouseAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void mouseClicked(MouseEvent e) {
 				if (selectedNumberList.size() != 6)
 					JOptionPane.showMessageDialog(null, "6개를 선택하세요");
 				else {
@@ -147,7 +157,7 @@ class ChoiceOfway extends JFrame {
 		add(selectionPop);
 		showGUI();
 	}
-
+/*
 	private void modLottoRadio(JPanel lottoPnl) {
 		for (int i = 0; i < check.size(); i++) {
 			JPanel lottoTemp = new JPanel();
@@ -168,7 +178,7 @@ class ChoiceOfway extends JFrame {
 			check.add(tempRadList);
 		}
 	}
-
+*/
 	private void addLottoRadio(JPanel lottoPnl) {
 		for (int i = 0; i < 7; i++) {
 			JPanel lottoTemp = new JPanel();
@@ -176,7 +186,8 @@ class ChoiceOfway extends JFrame {
 				lottoTemp.setLayout(new FlowLayout(FlowLayout.LEFT));
 			else
 				lottoTemp.setLayout(new FlowLayout());
-			List<JRadioButton> tempRadList = new ArrayList<JRadioButton>();
+			List<JRadioButton> tempRadList = new ArrayList<>();
+			List<JLabel> tempRadLblList = new ArrayList<>();
 			for (int j = 0; j < 7; j++) {
 				if (i == 6 && j > 2)
 					break;
@@ -187,10 +198,21 @@ class ChoiceOfway extends JFrame {
 				radioTemp.addActionListener(new RadioActionListener(check, selectedNumberList));
 				lottoTemp.add(radioTemp);
 				lottoTemp.add(tmpLbl);
+				
+//				숫자 라벨을 선택했을때도 라디오버튼이 선택되도록 하는 함수
+//				tmpLbl.addMouseListener(new MouseAdapter() {
+//					@Override
+//					public void mouseClicked(MouseEvent e) {
+//						radioTemp.addActionListener(new RadioActionListener(check, selectedNumberList));
+//					}
+//				});
+				
 				tempRadList.add(radioTemp);
+				tempRadLblList.add(tmpLbl);
 			}
 			lottoPnl.add(lottoTemp);
 			check.add(tempRadList);
+			checkLbl.add(tempRadLblList);
 		}
 	}
 
