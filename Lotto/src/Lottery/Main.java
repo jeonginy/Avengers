@@ -2,6 +2,8 @@ package Lottery;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.*;
    
@@ -44,7 +46,8 @@ public class Main extends JFrame {
 		btnPnl.setOpaque(true);
 		btnPnl.setBackground(Color.white);
 		
-		JButton nextBtn = new JButton("NEXT");
+		ImageIcon nextLblIcon = new ImageIcon("Buttons\\MainNext.gif");
+		JLabel nextLbl = new JLabel(nextLblIcon);
 
 		numOfBet.addActionListener(new ActionListener() {
 			@Override
@@ -53,16 +56,17 @@ public class Main extends JFrame {
 				select = tmp.getSelectedIndex() + 1;
 			}
 		});
-		nextBtn.addActionListener(new ActionListener() {
+		
+		nextLbl.addMouseListener(new MouseAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void mouseClicked(MouseEvent e) {
 				new SelectingNumber(select);
 				Main.this.dispose();
 			}
 		});
 		
 		btnPnl.add(numOfBet);
-		btnPnl.add(nextBtn);
+		btnPnl.add(nextLbl);
 
 		add(logoPnl, "North");
 		add(copyPnl);
