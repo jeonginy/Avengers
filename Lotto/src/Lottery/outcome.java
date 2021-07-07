@@ -1,6 +1,6 @@
 package Lottery;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.*;
@@ -17,25 +17,19 @@ class outcome extends JFrame {
 		JPanel result = new JPanel();
 		result.setLayout(new BoxLayout(result, BoxLayout.Y_AXIS));
 
-		/*
-		 * List<Integer> outcomeNum = MakeNumber.randomNum();
-		 * 
-		 * int bonusNum = outcomeNum.get(6); // 보너스넘버 outcomeNum.remove(6); // 1 2 3 4 5
-		 * 6 + 8 Collections.sort(outcomeNum);
-		 */
-		List<Integer> outcomeNum = new ArrayList<>();
-		outcomeNum.add(1);
-		outcomeNum.add(2);
-		outcomeNum.add(3);
-		outcomeNum.add(4);
-		outcomeNum.add(5);
-		outcomeNum.add(6);
-		int bonusNum = 7;
-		// 당첨 숫자용 패널
+//		String a = "";
+		List<Integer> outcomeNum = MakeNumber.randomNum();
+
+		int bonusNum = outcomeNum.get(6); // 보너스넘버
+		outcomeNum.remove(6);
+		// 1 2 3 4 5 6 + 8
+		Collections.sort(outcomeNum);
+
 		JPanel winNumPnl = new JPanel();
 		ImageIcon winNumIcon = new ImageIcon("Score/winningNum.gif");
 		JLabel winNum = new JLabel(winNumIcon);
 		winNumPnl.add(winNum);
+
 		JPanel imDone = new JPanel();
 
 		for (int i = 0; i < 6; i++) {
@@ -44,6 +38,17 @@ class outcome extends JFrame {
 			JLabel winNums = new JLabel(winNumsIcon);
 			winNumPnl.add(winNums);
 		}
+		
+		ImageIcon bonus = new ImageIcon("number/add.gif");
+		ImageIcon bonus2 = new ImageIcon("number/" + bonusNum + ".gif");
+		JLabel lbl;
+		JLabel lbl2;
+
+		lbl = new JLabel(bonus);
+		lbl2 = new JLabel(bonus2);
+
+		winNumPnl.add(lbl);
+		winNumPnl.add(lbl2);
 
 		for (int i = 0; i < selectedNum.length; i++) {
 			int count = 0;
@@ -99,16 +104,6 @@ class outcome extends JFrame {
 				imDone.add(realResult);
 			}
 		}
-		ImageIcon bonus = new ImageIcon("number/add.gif");
-		ImageIcon bonus2 = new ImageIcon("number/" + bonusNum + ".gif");
-		JLabel lbl;
-		JLabel lbl2;
-
-		lbl = new JLabel(bonus);
-		lbl2 = new JLabel(bonus2);
-
-		winNumPnl.add(lbl);
-		winNumPnl.add(lbl2);
 
 		result.add(winNumPnl);
 		result.add(imDone);
