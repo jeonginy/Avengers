@@ -23,9 +23,9 @@ class NumLabelActionListener extends MouseAdapter{
 		this.tmpLbl = tmpLbl;
 		this.checkLbl = checkLbl;
 	}
-	
+//	선택창 띄워서 숫자 선택하는 행동 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
+	public void mouseClicked(MouseEvent e) {
 		int tmp2 = 0;
 		for (int i = 0; i < this.check.size(); i++) {
 			List<JLabel> tmp = this.checkLbl.get(i);
