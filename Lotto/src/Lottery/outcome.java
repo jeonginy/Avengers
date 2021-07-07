@@ -18,13 +18,11 @@ class outcome extends JFrame {
 		result.setLayout(new BoxLayout(result, BoxLayout.Y_AXIS));
 
 		/*
-		List<Integer> outcomeNum = MakeNumber.randomNum();
-
-		int bonusNum = outcomeNum.get(6); // 보너스넘버
-		outcomeNum.remove(6);
-		// 1 2 3 4 5 6 + 8
-		Collections.sort(outcomeNum);
-*/
+		 * List<Integer> outcomeNum = MakeNumber.randomNum();
+		 * 
+		 * int bonusNum = outcomeNum.get(6); // 보너스넘버 outcomeNum.remove(6); // 1 2 3 4 5
+		 * 6 + 8 Collections.sort(outcomeNum);
+		 */
 		List<Integer> outcomeNum = new ArrayList<>();
 		outcomeNum.add(1);
 		outcomeNum.add(2);
@@ -35,19 +33,17 @@ class outcome extends JFrame {
 		int bonusNum = 7;
 		// 당첨 숫자용 패널
 		JPanel winNumPnl = new JPanel();
-
 		ImageIcon winNumIcon = new ImageIcon("Score/winningNum.gif");
 		JLabel winNum = new JLabel(winNumIcon);
 		winNumPnl.add(winNum);
+		JPanel imDone = new JPanel();
 
 		for (int i = 0; i < 6; i++) {
 			int nowNum = outcomeNum.get(i);
-			ImageIcon nowWinNumIcon = new ImageIcon("number/" + nowNum + ".gif");
-			JLabel nowWinNum = new JLabel(nowWinNumIcon);
-			winNumPnl.add(nowWinNum);
+			ImageIcon winNumsIcon = new ImageIcon("number/" + nowNum + ".gif");
+			JLabel winNums = new JLabel(winNumsIcon);
+			winNumPnl.add(winNums);
 		}
-
-		JPanel imDone = new JPanel();
 
 		for (int i = 0; i < selectedNum.length; i++) {
 			int count = 0;
@@ -57,13 +53,13 @@ class outcome extends JFrame {
 				int tmpNum = selectedNum[i][j];
 				boolean checkNum = outcomeNum.contains(tmpNum);
 				if (checkNum) {
-					// 라벨 추가 당첨이니까 컬러 라벨 imageicon("number/" + 숫자 + ".gif")
+					// 라벨 추가 당첨이니까 컬러 라벨 imageicon("number\\" + 숫자 + ".gif")
 					JLabel ociamge = new JLabel();
 					ImageIcon img = new ImageIcon("number/" + tmpNum + ".gif");
 					winNum.add(ociamge);
 					count++;
 				} else {
-					// 라벨 추가 미당첨이니까 흑백 라벨 imageicon("number/" + 숫자 + "b.gif")
+					// 라벨 추가 미당첨이니까 흑백 라벨 imageicon("number\\" + 숫자 + "b.gif")
 					JLabel ociamge2 = new JLabel();
 					ImageIcon img = new ImageIcon("number/" + tmpNum + "b.gif");
 					winNum.add(ociamge2);
@@ -77,7 +73,7 @@ class outcome extends JFrame {
 			if (count == 5 && bonusChk) { // 이건 2등
 
 			} else {
-				JLabel realResult = new JLabel();
+				JLabel realResult = null;
 				switch (count) {
 				case 6:
 					ImageIcon tmp = new ImageIcon("Score/1st.gif");
@@ -102,10 +98,21 @@ class outcome extends JFrame {
 				}
 				imDone.add(realResult);
 			}
-
 		}
+		ImageIcon bonus = new ImageIcon("number/add.gif");
+		ImageIcon bonus2 = new ImageIcon("number/" + bonusNum + ".gif");
+		JLabel lbl;
+		JLabel lbl2;
+
+		lbl = new JLabel(bonus);
+		lbl2 = new JLabel(bonus2);
+
+		winNumPnl.add(lbl);
+		winNumPnl.add(lbl2);
+
 		result.add(winNumPnl);
 		result.add(imDone);
+
 		add(result);
 
 		showGUI();
