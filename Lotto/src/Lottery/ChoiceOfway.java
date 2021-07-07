@@ -118,7 +118,7 @@ class ChoiceOfway extends JFrame {
 		btnPanel.setLayout(new FlowLayout());
 		
 		// 자동 버튼
-		ImageIcon autoIcon = new ImageIcon("Buttons\\AUTO.gif");
+		ImageIcon autoIcon = new ImageIcon("Buttons/AUTO.gif");
 		auto = new JLabel(autoIcon);
 		auto.addMouseListener(new MouseAdapter() {
 			@Override
@@ -137,7 +137,7 @@ class ChoiceOfway extends JFrame {
 			}
 		});
 
-		ImageIcon resetIcon = new ImageIcon("Buttons\\INIT.gif");
+		ImageIcon resetIcon = new ImageIcon("Buttons/INIT.gif");
 		reset = new JLabel(resetIcon);
 		reset.addMouseListener(new MouseAdapter() {
 			@Override
@@ -152,7 +152,7 @@ class ChoiceOfway extends JFrame {
 			}
 		});
 
-		ImageIcon confirmIcon = new ImageIcon("Buttons\\CHECK.gif");
+		ImageIcon confirmIcon = new ImageIcon("Buttons/CHECK.gif");
 		confirm = new JLabel(confirmIcon);
 		confirm.addMouseListener(new MouseAdapter() {
 			@Override
@@ -164,7 +164,7 @@ class ChoiceOfway extends JFrame {
 					for (int i = 0; i < 6; i++) {
 						int tmp = selectedNumberList.get(i);
 						selectedNumber[i] = tmp;
-						ImageIcon tmpIcon = new ImageIcon("number\\" + tmp + ".gif");
+						ImageIcon tmpIcon = new ImageIcon("number/" + tmp + ".gif");
 						numOfLottery[i].setIcon(tmpIcon);
 					}
 					dispose();
@@ -225,7 +225,7 @@ class ChoiceOfway extends JFrame {
 				if (i == 6 && j > 2)
 					break;
 				int tmp = (i * 7) + j + 1;
-				ImageIcon tmpIcon = new ImageIcon("number\\" + tmp + ".gif");
+				ImageIcon tmpIcon = new ImageIcon("number/" + tmp + ".gif");
 				JRadioButton radioTemp = new JRadioButton();
 				JLabel tmpLbl = new JLabel(tmpIcon);
 				radioTemp.addActionListener(new RadioActionListener(check, selectedNumberList));

@@ -30,13 +30,13 @@ public class Main extends JFrame {
 		logoPnl.setOpaque(true);
 		logoPnl.setBackground(Color.white);
 		
-		ImageIcon img1 = new ImageIcon("Logo\\Logo1.png");
+		ImageIcon img1 = new ImageIcon("Logo/Logo1.png");
 		JLabel logoLbl = new JLabel(img1);
 		logoPnl.add(logoLbl);
 		
 		
 		JPanel copyPnl = new JPanel();
-		ImageIcon msgLblIcon = new ImageIcon("Labels\\MainSentence.gif");
+		ImageIcon msgLblIcon = new ImageIcon("Labels/MainSentence.gif");
 		JLabel msgLbl = new JLabel(msgLblIcon);
 		copyPnl.setOpaque(true);
 		copyPnl.setBackground(Color.white);
@@ -46,7 +46,7 @@ public class Main extends JFrame {
 		btnPnl.setOpaque(true);
 		btnPnl.setBackground(Color.white);
 		
-		ImageIcon nextLblIcon = new ImageIcon("Buttons\\MainNext.gif");
+		ImageIcon nextLblIcon = new ImageIcon("Buttons/MainNext.gif");
 		JLabel nextLbl = new JLabel(nextLblIcon);
 
 		numOfBet.addActionListener(new ActionListener() {
