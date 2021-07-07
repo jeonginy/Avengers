@@ -2,6 +2,7 @@ package Lottery;
 import java.awt.FlowLayout;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 /*
@@ -14,7 +15,8 @@ class outcome {
 		JPanel result = new JPanel();
 		result.setLayout(new FlowLayout());
 		
-		JLabel winNum = new JLabel("당첨번호 : ");
+		ImageIcon winNumIcon = new ImageIcon("Score\\winningNum.gif");
+		JLabel winNum = new JLabel(winNumIcon);
 		
 		
 //		String a = "";

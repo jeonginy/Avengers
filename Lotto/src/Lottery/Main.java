@@ -1,4 +1,5 @@
 package Lottery;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,14 +23,28 @@ public class Main extends JFrame {
 
 	
 	public Main() {
-		ImageIcon img1 = new ImageIcon("Logo\\Logo1.png");
-		JLabel lbl111 = new JLabel(img1);
-		add(lbl111);
 		
-		JPanel pnl = new JPanel();
-
-		JLabel lbl = new JLabel("Select the numbers of you're betting for");
-		JButton btn = new JButton("Next");
+		JPanel logoPnl = new JPanel();
+		logoPnl.setOpaque(true);
+		logoPnl.setBackground(Color.white);
+		
+		ImageIcon img1 = new ImageIcon("Logo\\Logo1.png");
+		JLabel logoLbl = new JLabel(img1);
+		logoPnl.add(logoLbl);
+		
+		
+		JPanel copyPnl = new JPanel();
+		ImageIcon msgLblIcon = new ImageIcon("Labels\\MainSentence.gif");
+		JLabel msgLbl = new JLabel(msgLblIcon);
+		copyPnl.setOpaque(true);
+		copyPnl.setBackground(Color.white);
+		copyPnl.add(msgLbl);
+		
+		JPanel btnPnl = new JPanel();
+		btnPnl.setOpaque(true);
+		btnPnl.setBackground(Color.white);
+		
+		JButton nextBtn = new JButton("NEXT");
 
 		numOfBet.addActionListener(new ActionListener() {
 			@Override
@@ -38,7 +53,7 @@ public class Main extends JFrame {
 				select = tmp.getSelectedIndex() + 1;
 			}
 		});
-		btn.addActionListener(new ActionListener() {
+		nextBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new SelectingNumber(select);
@@ -46,17 +61,18 @@ public class Main extends JFrame {
 			}
 		});
 		
+		btnPnl.add(numOfBet);
+		btnPnl.add(nextBtn);
 
-		pnl.add(numOfBet, "South");
-		pnl.add(lbl);
-		pnl.add(btn);
-
-		add(pnl, "South");
+		add(logoPnl, "North");
+		add(copyPnl);
+		add(btnPnl, "South");
 
 		showGUI();
 	}
 
 	private void showGUI() {
+		setBackground(Color.white);
 		pack();
 		setVisible(true);
 	}
