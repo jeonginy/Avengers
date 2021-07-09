@@ -6,5 +6,11 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="Price"/>
+	<classpathentry kind="src" path="number"/>
+	<classpathentry kind="src" path="Labels"/>
+	<classpathentry kind="src" path="Score"/>
+	<classpathentry kind="src" path="Buttons"/>
+	<classpathentry kind="src" path="Logo"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

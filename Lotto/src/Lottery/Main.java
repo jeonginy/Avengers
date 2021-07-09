@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.URL;
 
 import javax.swing.*;
    
@@ -21,22 +22,27 @@ public class Main extends JFrame {
 //	1) 로또 개수, 확인 버튼 -> 원하는 개수 입력 받기 (최대 5개까지 가능)
 	Integer[] A = { 1, 2, 3, 4, 5 };
 	JComboBox<Integer> numOfBet = new JComboBox<>(A);
-	static int select = 1;
-
+	int select = 1;
+	static SelectingNumber selNum;
+	static StatisticsDialog statisDlg;
+	static Main newMain;
+	static int[] scoreList = new int[6];
 	
 	public Main() {
-		
+		this.setLocation(700, 250);
+		setTitle("로또 판매프로그램");
 		JPanel logoPnl = new JPanel();
 		logoPnl.setOpaque(true);
 		logoPnl.setBackground(Color.white);
 		
-		ImageIcon img1 = new ImageIcon("Logo/Logo1.png");
+		URL img1URL = Main.class.getClassLoader().getResource("Logo1.png");
+		ImageIcon img1 = new ImageIcon(img1URL);
 		JLabel logoLbl = new JLabel(img1);
 		logoPnl.add(logoLbl);
 		
-		
 		JPanel copyPnl = new JPanel();
-		ImageIcon msgLblIcon = new ImageIcon("Labels/MainSentence.gif");
+		URL msgLblIconURL = Main.class.getClassLoader().getResource("MainSentence.gif");
+		ImageIcon msgLblIcon = new ImageIcon(msgLblIconURL);
 		JLabel msgLbl = new JLabel(msgLblIcon);
 		copyPnl.setOpaque(true);
 		copyPnl.setBackground(Color.white);
@@ -46,7 +52,8 @@ public class Main extends JFrame {
 		btnPnl.setOpaque(true);
 		btnPnl.setBackground(Color.white);
 		
-		ImageIcon nextLblIcon = new ImageIcon("Buttons/MainNext.gif");
+		URL nextLblIconURL = Main.class.getClassLoader().getResource("MainNext.gif");
+		ImageIcon nextLblIcon = new ImageIcon(nextLblIconURL);
 		JLabel nextLbl = new JLabel(nextLblIcon);
 
 		numOfBet.addActionListener(new ActionListener() {
@@ -60,10 +67,11 @@ public class Main extends JFrame {
 		nextLbl.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new SelectingNumber(select);
+				selNum = new SelectingNumber(select);
 				Main.this.dispose();
 			}
 		});
+		
 		
 		btnPnl.add(numOfBet);
 		btnPnl.add(nextLbl);
@@ -76,8 +84,8 @@ public class Main extends JFrame {
 	}
 
 	private void showGUI() {
-		setBackground(Color.white);
 		pack();
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 	}
 
@@ -85,7 +93,7 @@ public class Main extends JFrame {
 //		String input = JOptionPane.showInputDialog(null, 
 //				"Select the numbers of you're betting for\n(The maximun is up to five)");
 //		JButton btn = new JButton(input);
-		new Main();
+		newMain = new Main();
 	}
 
 }
