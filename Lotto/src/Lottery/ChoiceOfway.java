@@ -82,9 +82,9 @@ class ChoiceOfway extends JFrame {
 	/*
 	 * 3) 번호 고르기 > 자동(반자동), 초기화, 확인 -> 총 금액, 구매하기 버튼 장당 1,000 총 금액 : 번 호 >> 반자동, 초기화
 	 * 확인, 구매하기
-	 */
-	List<List<JRadioButton>> check = new ArrayList<>();
-	List<List<JLabel>> checkLbl = new ArrayList<>();
+	 */	
+	List<List<JRadioButton>> check = new ArrayList<>();		//	동그라미 버튼 
+	List<List<JLabel>> checkLbl = new ArrayList<>();		//  이미지 	
 
 	List<Integer> selectedNumberList; // 선택한 숫자 저장
 	JPanel selectionPop;
@@ -117,7 +117,7 @@ class ChoiceOfway extends JFrame {
 		btnPanel = new JPanel();
 		btnPanel.setLayout(new FlowLayout());
 		
-		// 자동 버튼
+		// 자동 버튼 1-45
 		ImageIcon autoIcon = new ImageIcon("Buttons/AUTO.gif");
 		auto = new JLabel(autoIcon);
 		auto.addMouseListener(new MouseAdapter() {
@@ -211,26 +211,27 @@ class ChoiceOfway extends JFrame {
 			check.add(tempRadList);
 		}
 	}
-*/
+*/		
+//	로또 번호 개수 1-45까지 지정해주는 method 
 	private void addLottoRadio(JPanel lottoPnl) {
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < 7; i++) {		//	 i = 0-6까지 
 			JPanel lottoTemp = new JPanel();
-			if (i == 6)
-				lottoTemp.setLayout(new FlowLayout(FlowLayout.LEFT));
+			if (i == 6)		//	맨 마지막 열이 됐을 때 
+				lottoTemp.setLayout(new FlowLayout(FlowLayout.LEFT));	// 맨 왼에서 시작하기(맨 마지막 자리 수는 3개뿐이라)
 			else
-				lottoTemp.setLayout(new FlowLayout());
+				lottoTemp.setLayout(new FlowLayout());		//	그 외에 다 이어붙이기 
 			List<JRadioButton> tempRadList = new ArrayList<>();
 			List<JLabel> tempRadLblList = new ArrayList<>();
-			for (int j = 0; j < 7; j++) {
+			for (int j = 0; j < 7; j++) {		//	i가 하나 올라갈 수록 j값도 6번 반복  
 				if (i == 6 && j > 2)
 					break;
-				int tmp = (i * 7) + j + 1;
+				int tmp = (i * 7) + j + 1;	//	 1- 45까지 숫자를 만들어내는 함수식 
 				ImageIcon tmpIcon = new ImageIcon("number/" + tmp + ".gif");
 				JRadioButton radioTemp = new JRadioButton();
 				JLabel tmpLbl = new JLabel(tmpIcon);
 				radioTemp.addActionListener(new RadioActionListener(check, selectedNumberList));
-				lottoTemp.add(radioTemp);
-				lottoTemp.add(tmpLbl);
+				lottoTemp.add(radioTemp);	//	동그라미 버튼 수를 로또 번호판때기에 부착 
+				lottoTemp.add(tmpLbl);	//	레이블도 같이 붙이기 
 				
 //				숫자 라벨을 선택했을때도 라디오버튼이 선택되도록 하는 함수
 				tmpLbl.addMouseListener(new NumLabelActionListener(check, selectedNumberList, tmpLbl, checkLbl));
@@ -245,8 +246,9 @@ class ChoiceOfway extends JFrame {
 
 	private void showGUI() {
 //		setSize(500, 500);
+		setLocation(500, 200);
 		pack();
-	//	setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 	}
 

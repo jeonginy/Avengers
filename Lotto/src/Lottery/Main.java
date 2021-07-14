@@ -1,12 +1,18 @@
 package Lottery;
+
 import java.awt.Color;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.*;
-   
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 /*	1) 로또 개수, 확인 버튼 -> 원하는 개수 입력 받기 
  * 	2) 수동, 반자동, 자동 버튼 Label / 수정, 삭제 버튼 
  * 	3) 번호 고르기 > 자동(반자동), 초기화, 확인 -> 총 금액, 구매하기 버튼 
@@ -17,40 +23,34 @@ import javax.swing.*;
  *    로고
  *    모든 버튼의 글씨는 다 디자인으로 감
  */
-
-
-
 public class Main extends JFrame {
 //	1) 로또 개수, 확인 버튼 -> 원하는 개수 입력 받기 (최대 5개까지 가능)
 	Integer[] A = { 1, 2, 3, 4, 5 };
 	JComboBox<Integer> numOfBet = new JComboBox<>(A);
 	static int select = 1;
-	
 	static SelectingNumber selNum;
 
-	
 	public Main() {
-		
+
 		JPanel logoPnl = new JPanel();
 		logoPnl.setOpaque(true);
 		logoPnl.setBackground(Color.white);
-		
+
 		ImageIcon img1 = new ImageIcon("Logo/Logo1.png");
 		JLabel logoLbl = new JLabel(img1);
 		logoPnl.add(logoLbl);
-		
-		
+
 		JPanel copyPnl = new JPanel();
 		ImageIcon msgLblIcon = new ImageIcon("Labels/MainSentence.gif");
 		JLabel msgLbl = new JLabel(msgLblIcon);
 		copyPnl.setOpaque(true);
 		copyPnl.setBackground(Color.white);
 		copyPnl.add(msgLbl);
-		
+
 		JPanel btnPnl = new JPanel();
 		btnPnl.setOpaque(true);
 		btnPnl.setBackground(Color.white);
-		
+
 		ImageIcon nextLblIcon = new ImageIcon("Buttons/MainNext.gif");
 		JLabel nextLbl = new JLabel(nextLblIcon);
 
@@ -61,7 +61,7 @@ public class Main extends JFrame {
 				select = tmp.getSelectedIndex() + 1;
 			}
 		});
-		
+
 		nextLbl.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -69,7 +69,7 @@ public class Main extends JFrame {
 				Main.this.dispose();
 			}
 		});
-		
+
 		btnPnl.add(numOfBet);
 		btnPnl.add(nextLbl);
 
@@ -79,11 +79,10 @@ public class Main extends JFrame {
 
 		showGUI();
 	}
-	
-	
 
 	private void showGUI() {
 		setBackground(Color.white);
+		setLocation(500, 200);
 		pack();
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
